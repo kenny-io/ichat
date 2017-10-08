@@ -1,0 +1,30 @@
+package com.example.ekene.ichat.core.Logout;
+
+/**
+ * Created by EKENE on 9/23/2017.
+ */
+
+public class LogoutPresenter implements LogoutContract.Presenter, LogoutContract.OnLogoutListener {
+    private LogoutContract.View mLogoutView;
+    private LogoutInteractor mLogoutInteractor;
+
+    public LogoutPresenter(LogoutContract.View logoutView) {
+        mLogoutView = logoutView;
+        mLogoutInteractor = new LogoutInteractor(this);
+    }
+
+    @Override
+    public void logout() {
+        mLogoutInteractor.performFirebaseLogout();
+    }
+
+    @Override
+    public void onSuccess(String message) {
+        mLogoutView.onLogoutSuccess(message);
+    }
+
+    @Override
+    public void onFailure(String message) {
+        mLogoutView.onLogoutFailure(message);
+    }
+}
